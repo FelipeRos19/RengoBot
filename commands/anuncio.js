@@ -1,10 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client();
 
-module.exports = {
-    name: 'anuncio',
-    description: 'Anunciar',
-    execute(message, args) {
+module.exports.run = async (client, message, args) => {
 
         if(!message.member.roles.cache.has("760681290520592396")) {
             message.channel.send("❎ Você não tem permissão");
@@ -33,7 +30,5 @@ module.exports = {
 
             }
         }
-
-    }
 
 }

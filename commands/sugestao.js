@@ -1,9 +1,7 @@
 const Discord = require('discord.js')
 
-module.exports = {
-    name: 'sugestao',
-    description: 'Segerir algo',
-    execute(message, args) {
+module.exports.run = async (client, message, args) => {
+
 
         message.delete();
 
@@ -28,8 +26,5 @@ module.exports = {
         }).catch(function(){
             //nada
         });
-        
-
-    }
-
+    
 }

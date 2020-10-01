@@ -1,9 +1,6 @@
 const Discord = require('discord.js')
 
-module.exports = {
-    name: 'info',
-    description: 'informações do bot',
-    execute(message, args) {
+module.exports.run = async (client, message, args) => {
 
         message.delete();
 
@@ -22,8 +19,5 @@ module.exports = {
         .setFooter(`ID do Usuário: ${message.author.id}`, message.author.avatarURL())
         .setTimestamp()
         );
-        
-
-    }
 
 }
