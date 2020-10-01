@@ -2,7 +2,8 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const {prefix,token} = require("./config.json");
 const client = new Discord.Client();
-client.commands = new Discord.Collection();
+const Enmap = require('enmap')
+client.commands = new Enmap();
 
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
@@ -15,26 +16,32 @@ fs.readdir("./events/", (err, files) => {
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
-}
+fs.readdir("./commands/", (err, files) => {
+	if (err) return console.error(err);
+	files.forEach(file => {
+	  if (!file.endsWith(".js")) return;
+  
+	  let props = require(`./commands/${file}`);
+  
+	  let commandName = file.split(".")[0];
+	  console.log(`${commandName} carregado com sucesso! ✅`);
+	  
+	  client.commands.set(commandName, props);
+	});
+  });
 
 client.on("message", async message => {
 
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
-    
-	if (!client.commands.has(command)) return;
-
-	try {
-		client.commands.get(command).execute(message, args);
-	} catch (error) {
-		console.error(error);
-		message.reply('Erro ao executar o comando!');
-	}   
+	if (message.author.bot) return;
+	if (message.channel.dm === "dm") return;
+	
+	let messageArray = message.content.split(" ");
+	let cmd = messageArray[0];
+	let args = messageArray.slice(1);
+	
+	if (!message.content.startsWith(prefix)) return;
+	let commandfile = client.commands.get(cmd.slice(prefix.length));
+	if (commandfile) commandfile.run(client, message, args); 
 
 });
 
