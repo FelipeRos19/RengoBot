@@ -1,4 +1,3 @@
-# RengoBot
-Bot de Discord para o Streamer Venrar
+# RengoBot<br>
 
-Qualquer um dos arquivos dentro deste Projeto podem ser utilizados em outros projetos! Faça bom proveito!
+O Projeto **RengoBot** agora é totalmente Open Source! Então você pode utilizar qualquer um dos arquivos em seus projetos
