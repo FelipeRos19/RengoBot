@@ -9,6 +9,11 @@ module.exports.run = async (client, message, args) => {
     let minutes = Math.floor(totalSeconds / 60);
     let seconds = totalSeconds % 60;
 
+    if(hours >= 24) {
+        let c = hours/24;
+        days = c;
+    }
+
     let uptime = `🗓️ ${days.toFixed()} dias\n🗓️ ${hours.toFixed()} horas\n🗓️ ${minutes.toFixed()} minutos\n🗓️ ${seconds.toFixed()} segundos`;
 
     const embed = new Discord.MessageEmbed()
